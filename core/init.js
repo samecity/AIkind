@@ -31,6 +31,3 @@ function request(path){
 function js_debug(){
 	
 }
-js_debug.prototype = {
-	
-}
