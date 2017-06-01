@@ -27,3 +27,10 @@ function request(path){
 	var script = $('script').set({'type':'text/javascript','src':path});
 	$.tag('head').element[0].appendChild(script);
 }
+
+function js_debug(){
+	
+}
+js_debug.prototype = {
+	
+}
