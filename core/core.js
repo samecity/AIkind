@@ -12,12 +12,14 @@ var $ = new $class({
 	tags:[],
 	nodes:[],
 	doms:[],
+	cls:[],
 	init:function(ele){
 		var op = ele.split(1);
 		switch(ele.split(0,1)){
 			case '.': 
-			   this.element = (typeof op == 'undefinded')
+				this.element = (typeof this.cls[op] == 'undefinded') ? this.cls[op]	= document.getElementByClass(op) ? this.cls[op];
+			case '#':
+				this.element = (typeof this.ids[op] == 'undefinded') ? this.ids[op] = document.getElementById(op) ? this.ids[op];
 		}
-	},
-	
+	}	
 })();
