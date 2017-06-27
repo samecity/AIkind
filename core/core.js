@@ -6,7 +6,7 @@ function $class(obj){
 	return _class;
 }
 
-var $ = new $class({
+var _ = new $class({
 	element:'',
 	ids:[],
 	tags:[],
@@ -23,3 +23,6 @@ var $ = new $class({
 		}
 	}	
 })();
+
+var $ = function(){
+};
