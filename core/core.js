@@ -12,11 +12,11 @@ var $ = new $class({
 	tags:[],
 	nodes:[],
 	doms:[],
-	init:function(){
-		var opra
-		switch(){
+	init:function(ele){
+		var op = ele.split(1);
+		switch(ele.split(0,1)){
 			case '.': 
-			   this.element = (typeof )
+			   this.element = (typeof op == 'undefinded')
 		}
 	},
 	
