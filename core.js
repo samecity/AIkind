@@ -1,29 +1,49 @@
 var ai = new (_class(){
 	tweak_amount:0.01,
-	      
+	x:-2,
+	y:3,
+    out_xmy: 0,
 	init:function(){
+		this.out_xmy = this.forward_multiply_gate(this.x,this.y);
 		return this;
 	},
 	forward_multiply_gate:function(x,y){
-		return x*y;
+		return x * y;
 	},
-	derivative:function(){
-		var out_xmy = this.forward_multiply_gate(x,y);
+	forward_add_gate:function(x,y){
+		return x + y;
+	},
+	forward_circuit:function(x,y,z){
+		return this.forward_multiply_gate(this.forward_add_gate(x,y),z);
+	},
+	derivative:function(){	
+		var xph = this.x + this.tweak_amount;
+		var out_xphmy = this.forward_multiply_gate(xph,this.y); 
+		var x_derivative = (out_xphmy - this.out_xmy)/this.tewak_amount;
 		
-		var xph = x + this.tweak_amount;
-		var out_xphmy = this.forward_multiply_gate(xph,y); 
-		var x_derivative = (out_xphmy - out_xmy)/this.tewak_amount;
+		var yph = this.y + this.tweak_amount;
+		var out_yphmx = this.forward_multiply_gate(xph,this.x);
+		var y_derivative = (out_yphmx - this.out_xmy)/this.tewak_amount;
 		
-		var yph = y + this.tweak_amount;
-		var out_yphmx = this.forward_multiply_gate(xph,x);
-		var y_derivative = (out_yphmx - out_xmy)/this.tewak_amount;
-		
-		x = x + this.tweak_amount * x_derivative;
-		y = y + this.tweak_amount * y_derivative;
-		var out = this.forward_multiply_gate(x,y);
+		this.x = this.x + this.tweak_amount * x_derivative;
+		this.y = this.y + this.tweak_amount * y_derivative;
+		var out = this.forward_multiply_gate(this.x,this.y);
 				
 		return {'x_derivative':x_derivative,'y_derivative':y_derivative};
+	},
+	gradient:function(){
+		var x_gradient = this.y;
+		var y_gradient = this.x;
+		
+		this.x += this.tweak_amount * y_gradient;
+		this.y += this.tweak_amount * x_gradient;
+		
+		var out = this.forward_multiply_gate(this.x,this.y);
+		
+		return out;
+	},
+	multiple:function(){
+		var 
 	}
-	gradient
 	
 })();
