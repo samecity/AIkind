@@ -13,7 +13,7 @@ var ai = new (_class(){
 	forward_add_gate:function(x,y){
 		return x + y;
 	},
-	forward_circuit:function(x,y,z){
+	forward:function(x,y,z){
 		return this.forward_multiply_gate(this.forward_add_gate(x,y),z);
 	},
 	derivative:function(){	
@@ -42,8 +42,16 @@ var ai = new (_class(){
 		
 		return out;
 	},
-	multiple:function(){
-		var 
+	backward:function(x,y,z){
+		var derivative_z = this.forward_add_gate(x,y);
+		var derivative_x = this.forward(x,y,z)/derivative_z;
+		var derivative_y = this.forward(x,y,z)/derivative_z;
+		
+		var $x += this.tweak_amount * derivative_z;
+		var $y += this.tweak_amount * derivative_y;
+		var $z += this.tweak_amount * derivative_z;
+		
+		return this.forward(x,y,z);
 	}
 	
 })();
